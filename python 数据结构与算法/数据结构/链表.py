@@ -39,14 +39,14 @@ class UnorderedList:
         return False
     def remove(self, data):
         current = self.head
-        previous = self.head
+        previous = None
         while current != None:
             if current.data == data:
                 if previous == None:
                     self.head = current.next
                 else:
                     previous.next = current.next
-                current.next = None
+                del current
                 break
             previous = current
             current = current.next
@@ -101,7 +101,7 @@ class UnorderedList:
         return current
 
 
-
+# %%
 ## 升序链表
 class OrderedList:
     def __init__(self):
@@ -132,13 +132,12 @@ class OrderedList:
                 else:
                     previous.next = current.next
                 current.next = None
-                break
+                return
             elif current.data > data:
                 break
             previous = current
             current = current.next
-        if current == None:
-            raise ValueError("value doesn't exist")
+        raise ValueError("value doesn't exist")
     def search(self, data):
         node = self.head
         while node != None:
@@ -205,3 +204,5 @@ alist.add(200)
 print(alist)
 alist.search(201)
 print(alist)
+alist.remove(201)
+alist.remove(198)
