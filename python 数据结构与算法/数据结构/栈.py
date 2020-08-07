@@ -13,12 +13,12 @@ class Stack:
         return len(self.items) == 0
     def size(self):
         return len(self.items)
-
-stack = Stack()
-stack.push(1)
-stack.push('pig')
-print(stack)
-stack.peek()
-stack.isempty()
-stack.size()
-stack.pop()
+if __name__ == "__main__":
+    stack = Stack()
+    stack.push(1)
+    stack.push('pig')
+    print(stack)
+    stack.peek()
+    stack.isempty()
+    stack.size()
+    stack.pop()
