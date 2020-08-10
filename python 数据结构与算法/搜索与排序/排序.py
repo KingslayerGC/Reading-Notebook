@@ -68,7 +68,7 @@ selectsort(l[:], ascending=False)
 
 ## 堆排序
 def sift(List, k, m):
-    i, j = k, 2*k
+    i, j = k, 2*k+1
     while j<=m:
         if j<m and List[j]<List[j+1]:
             j += 1
@@ -76,7 +76,7 @@ def sift(List, k, m):
             break
         else:
             List[i], List[j] = List[j], List[i]
-            i, j = j, 2*j
+            i, j = j, 2*j+1
 def heapsort(List):
     for i in range(len(List)//2-1, -1, -1):
         sift(List, i, len(List)-1)

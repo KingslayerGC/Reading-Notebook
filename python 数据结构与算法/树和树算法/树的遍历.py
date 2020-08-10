@@ -28,5 +28,3 @@ def postprint(root):
         return "(" + postprint(root.leftchild) + root.rootval\
             + postprint(root.rightchild) + ")"
 postprint(example)
-
-# %%
