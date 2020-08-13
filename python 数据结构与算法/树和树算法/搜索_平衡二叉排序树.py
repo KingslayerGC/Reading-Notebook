@@ -25,8 +25,7 @@ class TreeNode:
             if self.rightchild != None:
                 for key in self.rightchild:
                     yield key
-
-
+        
 ## 二叉排序树类
 class BinarySearchTree:
     def __init__(self):
@@ -129,8 +128,55 @@ class BinarySearchTree:
             self.delete(replace.key)
             current.key, current.value = replacekey, replaceval
 
+class AVTBinarySearchTree(BinarySearchTree):
+    def _rebalance(self, previous):
+        current = previous.parent
+        root = current.parent
+        while root != None:
+            lheight = self._height(root.leftchild)
+            rheight = self._height(root.rightchild)
+            balance = lheight - rheight
+            # 找到最小不平衡子树的根节点
+            if abs(balance) > 1:
+                # LL型最小不平衡子树
+                if previous.isleftchild() and current.isleftchild():
+                # LR型最小不平衡子树
+                elif previous.isleftchild() and current.isrightchild():
+                # RL型最小不平衡子树    
+                elif previous.isrightchild() and current.isleftchild():
+                # RR型最小不平衡子树    
+                else:
+                    
+            current = current.parent
+    def _height(self, current):
+        if current == None:
+            return 0
+        else:
+            return max(self._height(current.leftchild)+1, self._height(current.rightchild)+1)
+    def put(self, key, val, current='default'):
+        if current == 'default':
+            current = self.root
+        if current == None:
+            self.root = TreeNode(key, val)
+            self.size += 1
+        elif key < current.key:
+            if current.leftchild == None:
+                current.leftchild = TreeNode(key, val, parent=current)
+                self._rebalance(current.leftchild)
+                self.size += 1
+            else:
+                self.put(key, val, current.leftchild)
+        elif key > current.key:
+            if current.rightchild == None:
+                current.rightchild = TreeNode(key, val, parent=current)
+                self._rebalance(current.rightchild)
+                self.size += 1
+            else:
+                self.put(key, val, current.rightchild)
+        else:
+            current.value = val
 
-mytree = BinarySearchTree()
+mytree = AVTBinarySearchTree()
 
 mytree[4]="blue"
 
@@ -149,5 +195,3 @@ for key in mytree:
 
 for key in mytree.get(8, result='node'):
     print(key)
-
-mytree.delete(8)
