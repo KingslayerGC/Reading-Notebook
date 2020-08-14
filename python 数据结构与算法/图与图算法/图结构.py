@@ -3,7 +3,9 @@ class Vertex():
     def __init__(self, key):
         self.id = key
         self.connections = {}
-    def addneighbor(self, key, weight):
+        self._parent = None
+        self._flag = 0
+    def addneighbor(self, key, weight=None):
         self.connections[key] = weight
     def __str__(self):
         string = "id:%s\n"%self.id
@@ -35,17 +37,17 @@ class Graph():
             raise KeyError("key not found")
     def add(self, key):
         self.vlist[key] = Vertex(key)
-    def addedge(self, fromkey, tokey, weight):
+    def addedge(self, fromkey, tokey, weight=None):
         if fromkey in self and tokey in self:
             self[fromkey].addneighbor(tokey, weight)
         else:
             raise KeyError("key not found")
-
-graph = Graph()
-graph.add(1)
-graph.add(2)
-graph.add(3)
-graph.addedge(2, 1, 123)
-print(graph)
-for key in graph:
-    print(key)
+if __name__ == '__main__':
+    graph = Graph()
+    graph.add(1)
+    graph.add(2)
+    graph.add(3)
+    graph.addedge(2, 1, 123)
+    print(graph)
+    for key in graph:
+        print(key)

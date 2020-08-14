@@ -30,6 +30,7 @@ def lastsurvivor(survivor, num=7):
 print(lastsurvivor(Queue('笨蛋','傻瓜','铁憨憨','垃圾','臭猪')))
 
 ## 打印模拟
+import random
 # 打印机类
 class Printer:
     def __init__(self, print_speed):
@@ -56,7 +57,6 @@ class Task:
         self.timeremain = 0
 
 def prob(n):
-    import random
     return random.randrange(n) == 0
 
 def simulation(time, print_speed):
