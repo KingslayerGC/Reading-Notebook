@@ -35,6 +35,11 @@ class Graph():
             return self.vlist[key]
         else:
             raise KeyError("key not found")
+    def size(self):
+        count = 0
+        for key in self:
+            count += 1
+        return count
     def add(self, key):
         self.vlist[key] = Vertex(key)
     def addedge(self, fromkey, tokey, weight=None):
@@ -42,6 +47,7 @@ class Graph():
             self[fromkey].addneighbor(tokey, weight)
         else:
             raise KeyError("key not found")
+
 if __name__ == '__main__':
     graph = Graph()
     graph.add(1)
