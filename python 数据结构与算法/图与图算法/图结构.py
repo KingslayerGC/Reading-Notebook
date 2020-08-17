@@ -17,7 +17,7 @@ class Vertex():
     def getweight(self, key):
         return self.connections[key]
 
-## 图类
+## 图类(邻接表)
 class Graph():
     def __init__(self):
         self.vlist = {}
