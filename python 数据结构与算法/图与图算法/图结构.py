@@ -5,6 +5,7 @@ class Vertex():
         self.connections = {}
         self._parent = None
         self._flag = 0
+        self.income = 0
     def addneighbor(self, key, weight=None):
         self.connections[key] = weight
     def __str__(self):
