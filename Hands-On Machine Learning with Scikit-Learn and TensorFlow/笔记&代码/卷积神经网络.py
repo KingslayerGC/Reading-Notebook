@@ -147,7 +147,7 @@ plt.imshow(img7), plt.axis('off')
 # %%
 ## 其他
 ### 其他成功的CNN还有GoogLeNet、ResNet等
-# ResNet代码（未读）
+# MINST完整代码（未读）
 height = 28
 width = 28
 channels = 1
