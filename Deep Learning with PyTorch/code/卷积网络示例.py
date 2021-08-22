@@ -40,7 +40,6 @@ class Mnist_CNN(nn.Module):
         self.conv3 = nn.Conv2d(16, 10, kernel_size=3, stride=2, padding=1)
 
     def forward(self, xb):
-        # 相当于numpy的reshape
         xb = F.relu(self.conv1(xb))
         xb = F.relu(self.conv2(xb))
         xb = F.relu(self.conv3(xb))
@@ -94,7 +93,7 @@ dev = torch.device(
 train_dl, valid_dl = get_dataloader(X, y, 0.8, 64)
 
 model = Mnist_CNN().to(dev)
-opt = optim.SGD(model.parameters(), lr=0.1, momentum=0.9) #使用SGD容易陷入局部最小
+opt = optim.Adam(model.parameters()) #使用SGD容易陷入局部最小
 
 fit(10, model, F.cross_entropy, opt, train_dl, valid_dl)
 
