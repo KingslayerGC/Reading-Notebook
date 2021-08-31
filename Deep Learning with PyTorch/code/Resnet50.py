@@ -240,10 +240,10 @@ def fit(epochs, model, loss_func, opt, train_dl, test_dl, dev):
 # 主程序
 # =============================================================================
 # 全局变量
-IMG_PATH = "C:/Users/KingslayerGC/Desktop/train_images"
-LABEL_PATH = "C:/Users/KingslayerGC/Desktop/train.csv"
+IMG_PATH = r"D:\kaggle_leafdisease\train_images"
+LABEL_PATH = r"D:\kaggle_leafdisease\train.csv"
 IMAGE_DIM = (512, 512)
-BATCH_SIZE = 8
+BATCH_SIZE = 4
 GAMMA = 2
 DEV = torch.device(
     "cuda") if torch.cuda.is_available() else torch.device("cpu")
@@ -258,4 +258,38 @@ model = Resnet50(n_output=5, groups=32).to(DEV)
 
 # 训练并得到结果
 opt = optim.Adam(model.parameters())
-fit(10, model, focal_loss, opt, train_dl, test_dl, DEV)
+#fit(10, model, focal_loss, opt, train_dl, test_dl, DEV)
+
+# %%
+# =============================================================================
+# 可视化
+# =============================================================================
+import torchvision
+from torch.utils.tensorboard import SummaryWriter
+
+# 生成储存数据的文件夹
+writer = SummaryWriter(r"C:\Users\KingslayerGC\runs\experiment_1")
+
+# 获得一些图片
+dataiter = iter(train_dl)
+images, labels = dataiter.next()
+
+# 展示图片
+img_grid = torchvision.utils.make_grid(images)
+writer.add_image('train_images', img_grid)
+
+# 展示模型
+writer.add_graph(model, images)
+
+# 投影（默认PCA）
+writer.add_embedding(images.view(-1, 512*512*3),
+                     metadata=labels,
+                    label_img=images)
+
+# 添加标量，将自动绘制折线图
+# writer.add_scalar
+
+# 添加评估指标
+# writer.add_pr_curve
+
+writer.close()
